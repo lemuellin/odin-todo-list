@@ -1,3 +1,5 @@
+import {projectButton} from './index.js';
+
 function initDOM(){
     const content = document.querySelector('#content');
 
@@ -22,6 +24,10 @@ function initDOM(){
             projectList.classList.add('projectList');
             sidePanel.appendChild(projectList);
 
+            const createProjectInput = document.createElement('div');
+            createProjectInput.classList.add('createProjectInput');
+            sidePanel.appendChild(createProjectInput);
+
             const createProject = document.createElement('button');
             createProject.classList.add('createProject');
             createProject.textContent = 'Create Project';
@@ -40,15 +46,33 @@ function initDOM(){
             todoList.classList.add('todoList');
             mainPanel.appendChild(todoList);
 
+            const createTodoInput = document.createElement('div');
+            createTodoInput.classList.add('createTodoInput');
+            mainPanel.appendChild(createTodoInput);
+
+            const buttonBar = document.createElement('div');
+            buttonBar.classList.add('buttonBar');
+            mainPanel.appendChild(buttonBar);
+
+            const deleteProject = document.createElement('button');
+            deleteProject.classList.add('deleteProject');
+            deleteProject.textContent = 'Delete Project';
+            buttonBar.appendChild(deleteProject);
+
+            const editProject = document.createElement('button');
+            editProject.classList.add('createTodo');
+            editProject.textContent = 'Edit Project';
+            buttonBar.appendChild(editProject);
+
             const createTodo = document.createElement('button');
             createTodo.classList.add('createTodo');
             createTodo.textContent = 'Create To-Do';
             createTodo.addEventListener('click', ()=>{popupOpen.item()});
-            mainPanel.appendChild(createTodo);
+            buttonBar.appendChild(createTodo);
     
     const projectPopup = document.createElement('div');
     projectPopup.classList.add('projectPopup');
-    document.body.appendChild(projectPopup);
+    createProjectInput.appendChild(projectPopup);
     
         const projectForm = document.createElement('form');
         projectForm.classList.add('projectForm');
@@ -77,7 +101,7 @@ function initDOM(){
 
     const itemPopup = document.createElement('div');
     itemPopup.classList.add('itemPopup');
-    document.body.appendChild(itemPopup);
+    createTodoInput.appendChild(itemPopup);
     
         const itemForm = document.createElement('form');
         itemForm.classList.add('itemForm');
@@ -115,10 +139,12 @@ function initDOM(){
 const popupOpen = (() => {
     const project = () => {
       document.querySelector('.projectPopup').style.display = 'block';
+      document.querySelector('.createProject').style.display = 'none';
     }
 
     const item = () => {
       document.querySelector('.itemPopup').style.display = 'block';
+      document.querySelector('.createTodo').style.display = 'none';
     }
 
     return {
@@ -131,11 +157,13 @@ const popupClose = (() => {
     const project = () => {
       document.querySelector('.projectPopup').style.display = 'none';
       document.querySelector('.projectForm').reset();
+      document.querySelector('.createProject').style.display = 'block';
     }
 
     const item = () => {
       document.querySelector('.itemPopup').style.display = 'none';
       document.querySelector('.itemForm').reset();
+      document.querySelector('.createTodo').style.display = 'block';
     }
 
     return {
@@ -145,12 +173,10 @@ const popupClose = (() => {
 })();
 
 const createDOM = (() => {
-
-
     const project = (_projectList) => {
         const projectList = document.querySelector('.projectList');
         let eachProject = _projectList.length - 1;
-            let projects = document.createElement('button');
+            const projects = document.createElement('button');
             projects.textContent = _projectList[eachProject];
             projects.classList.add('project');
             projects.classList.add(`projects${eachProject}`);
@@ -162,9 +188,14 @@ const createDOM = (() => {
         popupClose.project();
     }
 
-    const item = (todo) => {
+    const item = (todo, sortedProject, nthProject, nthItem) => {
         const todoList = document.querySelector('.todoList');
-        let todoButton = document.createElement('button');
+        const todoContainer = document.createElement('div');
+        todoContainer.classList.add('todoContainer');
+        todoList.appendChild(todoContainer);
+
+        //Todo Title
+        const todoButton = document.createElement('button');
         todoButton.textContent = todo.title;
         todoButton.classList.add('todoItems');
         todoButton.style.cssText = (todo.status == "complete") ? "text-decoration: line-through;" : "text-decoration: none;";
@@ -174,7 +205,40 @@ const createDOM = (() => {
             // CSS - Line Through
             todoButton.style.cssText = (todo.status == "complete") ? "text-decoration: line-through;" : "text-decoration: none;";
         });
-        todoList.appendChild(todoButton);
+        todoContainer.appendChild(todoButton);
+
+        //Todo Edit
+        const todoEditButton = document.createElement('button');
+        todoEditButton.classList.add('todoEditButton');
+        todoEditButton.textContent = "Edit";
+        todoEditButton.addEventListener('click', () => {
+            popupOpen.item();
+
+        });
+        todoContainer.appendChild(todoEditButton);
+
+        //Todo Delete
+        const todoDeleteButton = document.createElement('button');
+        todoDeleteButton.classList.add('todoDeleteButton');
+        todoDeleteButton.textContent = "Delete";
+        todoDeleteButton.addEventListener('click', () => {
+            
+            // document.querySelector(`.X${nthProject}_${nthItem}`).style.display = 'none';
+            todoList.removeChild(todoContainer);
+            
+            sortedProject[nthProject].splice(nthItem,1);
+            projectButton();
+            console.log(sortedProject[nthProject]);
+
+        });
+        todoContainer.appendChild(todoDeleteButton);
+
+        //Todo Info
+        const todoInfoButton = document.createElement('button');
+        todoInfoButton.classList.add('todoInfoButton');
+        todoInfoButton.textContent = "i";
+        todoContainer.appendChild(todoInfoButton);
+
         popupClose.item();
     }
 

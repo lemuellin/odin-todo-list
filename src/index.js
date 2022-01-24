@@ -35,16 +35,7 @@ function sortTodo (){
     }
     return sortedProject;
 }
-
 sortTodo();
-
-// Create Project Button
-const projectSubmit = document.querySelector('.projectSubmit');
-projectSubmit.addEventListener('click', (e) => {
-    e.preventDefault();
-    createProjectAlgor(document.querySelector('.projectInput').value, projectList);
-    projectButton();
-});
 
 // Project Button Behavior
 const todoList = document.querySelector('.todoList');
@@ -58,12 +49,20 @@ function projectButton() {
             while(todoList.firstChild){todoList.firstChild.remove()};
 
             for (let eachTodo = 0; eachTodo < sortedProject[i].length; eachTodo++){
-                createDOM.item(sortedProject[i][eachTodo]);
+                createDOM.item(sortedProject[i][eachTodo], sortedProject, i, eachTodo); //, sortedProject[i], eachTodo+1);
             }
         });
     }
 }
 projectButton();
+
+// Create Project Submit Button
+const projectSubmit = document.querySelector('.projectSubmit');
+projectSubmit.addEventListener('click', (e) => {
+    e.preventDefault();
+    createProjectAlgor(document.querySelector('.projectInput').value, projectList);
+    projectButton();
+});
 
 // Create ToDo Item Submit Button
 const itemSubmit = document.querySelector('.itemSubmit');
@@ -71,9 +70,18 @@ itemSubmit.addEventListener('click', (e) => {
     e.preventDefault();
     // submit new todo to project
     let todo = todoItem(document.querySelector('.title').value, document.querySelector('.description').value, currentProject, "incomplete")
-    project.push(todo);
-    //sort todo
-    sortTodo();
+    
+    let nthProject = currentProject.slice(7,currentProject.length);
+    sortedProject[nthProject].push(todo);
+
     //create DOM and behavior
-    createDOM.item(todo);
+    createDOM.item(todo, sortedProject, nthProject, sortedProject[nthProject].length-1); //, sortedProject[string], sortedProject[string].length-1);
 });
+
+export{
+    projectButton,
+};
+// need a current Item number to delete or edit the item
+
+
+

@@ -34,7 +34,6 @@ body{
         flex-direction: column;
         align-items: center;
         gap: 10px;
-
     }
 
         .projectTitle{
@@ -67,7 +66,7 @@ body{
             opacity: 1;
         }
 
-        .createProject, .createTodo{
+        .createProject, .createTodo, .deleteProject{
             width: 150px;
             border: none;
             border-radius: 20px;
@@ -76,12 +75,16 @@ body{
             padding: 10px;
         }
 
-        .createProject:hover, .createTodo:hover{
+        .deleteProject{
+            background-color: red;
+        }
+
+        .createProject:hover, .createTodo:hover, .deleteProject:hover{
             background-color: #ffb238;
             opacity: 0.9;
         }
 
-        .createProject:active, .createTodo:active{
+        .createProject:active, .createTodo:active, .deleteProject:active{
             background-color: #ff773d;
         }
 
@@ -97,12 +100,23 @@ body{
         gap: 10px;
     }
 
+    .buttonBar{
+        width: 1000px;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .todoContainer{
+        display: flex;
+        gap: 5px;
+    }
+
         .todoItems{
             border: none;
             border-radius: 10px;
             background-color: #efefef;
             height: 50px;
-            width: 1000px;
+            width: 800px;
             font-size: 15px;
         }
 
@@ -110,15 +124,83 @@ body{
             text-decoration: line-through;
         }
 
-.itemPopup, .projectPopup{
-    display: none;
-    background-color: purple;
-    width: 300px;
-    height: 200px;
+        .todoEditButton{
+            border: 1px solid black;
+            border-radius: 10px;
+            background-color: #efefef;
+            height: 50px;
+            width: 50px;
+            font-size: 15px;
+        }
 
-    /* place it dead center in the window*/
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+        .todoDeleteButton{
+            border: 1px solid black;
+            border-radius: 10px;
+            background-color: #efefef;
+            height: 50px;
+            width: 50px;
+            font-size: 15px;
+        }
+
+        .todoInfoButton{
+            border: 1px solid black;
+            border-radius: 10px;
+            background-color: #efefef;
+            height: 50px;
+            width: 50px;
+            font-size: 15px;
+        }
+
+/* Project and Item Popup */
+.projectPopup{
+    display: none;
 }
+
+.itemPopup{
+    display: none;
+}
+
+    .projectForm{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .projectInput{
+        border: none;
+        border-radius: 10px;
+        background-color: #efefef;
+        height: 50px;
+        width: 225px;
+        font-size: 15px;
+        padding-left: 15px;
+    }
+
+    .projectSubmit, .projectCancel{
+        border: none;
+        border-radius: 10px;
+        background-color: #20a39e;
+        height: 30px;
+        width: 200px;
+        font-size: 15px;
+        opacity: 0.8;
+    }
+
+    .itemSubmit, .itemCancel{
+        border: none;
+        border-radius: 10px;
+        background-color: #20a39e;
+        height: 40px;
+        width: 100px;
+        font-size: 15px;
+        opacity: 0.8;
+    }
+
+    .projectCancel, .itemCancel{
+        background-color: #f55536;
+    }
+
+    .projectSubmit:hover, .projectCancel:hover, .itemSubmit:hover, .itemCancel:hover{
+        opacity:1;
+    }
