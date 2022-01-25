@@ -12,7 +12,7 @@ let projectCounter = 0;
 initDOM();
 
 //#region Initialization - create Default Projects and Todo Items
-createProjectAlgor("Family", projectList); projectCounter++;
+createProjectAlgor("Inbox", projectList); projectCounter++;
 project.push(todoItem('title11', 'description11', 'project0', "incomplete"));
 project.push(todoItem('title12', 'description12', 'project0', "incomplete"));
 project.push(todoItem('title13', 'description13', 'project0', "incomplete"));
@@ -49,6 +49,12 @@ function projectButton() {
         child.addEventListener('click', () => {
             currentProject = i;            
 
+            for (let j = 0; j < projectListChild.length; j++){
+                projectListChild[j].classList.remove('pressed');
+            }
+
+            child.classList.add('pressed');
+
             // clear the main panel
             while(todoList.firstChild){todoList.firstChild.remove()};
 
@@ -61,6 +67,8 @@ function projectButton() {
     }
 }
 projectButton();
+document.querySelector('.projects0').click();
+document.querySelector('.projects0').focus();
 
 // Create Project Submit Button
 

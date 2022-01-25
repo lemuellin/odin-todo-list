@@ -56,7 +56,7 @@ body{
             opacity: 0.8;
         }
 
-        .project:active{
+        .project:active, .project:focus, .pressed{
             background-color: #00cecb;
             opacity: 1;
         }
