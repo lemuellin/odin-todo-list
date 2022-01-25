@@ -1,4 +1,4 @@
-import {createDOM} from './DOM.js';
+import { createDOM } from './DOM.js';
 
 // Todo Item Factory 
 const todoItem = (title, description, project, status) => {

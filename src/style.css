@@ -36,11 +36,6 @@ body{
         gap: 10px;
     }
 
-        .projectTitle{
-            text-align: left;
-            padding-left: 50px;
-        }
-
         .projectList, .todoList{
             display: flex;
             flex-direction: column;
@@ -66,7 +61,7 @@ body{
             opacity: 1;
         }
 
-        .createProject, .createTodo, .deleteProject{
+        .createProject, .editProject, .createTodo, .deleteProject{
             width: 150px;
             border: none;
             border-radius: 20px;
@@ -79,12 +74,12 @@ body{
             background-color: red;
         }
 
-        .createProject:hover, .createTodo:hover, .deleteProject:hover{
+        .createProject:hover, .editProject:hover, .createTodo:hover, .deleteProject:hover{
             background-color: #ffb238;
             opacity: 0.9;
         }
 
-        .createProject:active, .createTodo:active, .deleteProject:active{
+        .createProject:active,.editProject:active, .createTodo:active, .deleteProject:active{
             background-color: #ff773d;
         }
 
