@@ -13,15 +13,35 @@
                 <div class = "projectList"></div>
                 <div class = "projectPopup">
                     <form class = "projectForm">
-                        <input type = "text" placeholder = "Enter Project Name" name = "project" class = "projectInput">                            <button class = "projectSubmit">Submit</button>
+                        <input type = "text" placeholder = "Enter Project Name" name = "project" class = "projectInput">
+                        <button class = "projectSubmit">Submit</button>
                         <button class = "projectCancel">Cancel</button>
                     </form>
                 </div>
+                <div class = "projectEditPopup">
+                    <form class = "projectEditForm">
+                        <input type = "text" placeholder = "Enter Project Name" name = "project" class = "projectEditInput">
+                        <button class = "projectEditSubmit">Submit</button>
+                        <button class = "projectEditCancel">Cancel</button>
+                    </form>
+                </div>
                 <button class = "createProject">Create Project</button>
+                <button class = "editProject">Edit Project</button>
+                <button class = "deleteProject">Delete Project</button>
             </div>
             <div class = "mainPanel">
                 <div>To-Do Items</div>
                 <div class = "todoList"></div>
+                <div class = "infoPopup">
+                    <div class = "infoForm">
+                        <div class = "titleInfo"></div>
+                        <div class = "descriptionInfo"></div>
+                        <!-- <div class = "priorityInfo"></div>
+                        <div class = "dueDateInfo"></div> -->
+                        <div class = "statusInfo"></div>
+                        <button class = "closeButton">OK</button>
+                    </div>
+                </div>
                 <div class = "itemPopup">
                     <form class = "itemForm">
                         <input type = "text" placeholder = "Enter Title" name = "title" class = "title">
@@ -30,9 +50,17 @@
                         <button class = "itemCancel">Cancel</button>
                     </form>
                 </div>
+                <div class = "itemEditPopup">
+                    <form class = "itemEditForm">
+                            <input type = "text" placeholder = "Enter Title" name = "title" class = "titleEdit">
+                            <input type = "text" placeholder = "Enter Description" name = "description" class = "descriptionEdit">
+                        <div>
+                            <button class = "itemEditSubmit">Submit</button>
+                            <button class = "itemEditCancel">Cancel</button>
+                        </div>
+                    </form>
+                </div>
                 <div class = "buttonBar">
-                    <button class = "deleteProject">Delete Project</button>
-                    <button class = "editProject">Edit Project</button>
                     <button class = "createTodo">Create To-Do</button>
                 </div>
             </div>
