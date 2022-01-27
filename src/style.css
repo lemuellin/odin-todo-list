@@ -72,6 +72,7 @@ body{
 
         .deleteProject{
             background-color: red;
+            opacity: 0.8;
         }
 
         .createProject:hover, .editProject:hover, .createTodo:hover, .deleteProject:hover{
@@ -98,7 +99,7 @@ body{
     .buttonBar{
         width: 1000px;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
     }
     
     .todoContainer{
@@ -119,8 +120,8 @@ body{
             text-decoration: line-through;
         }
 
-        .todoEditButton{
-            border: 1px solid black;
+        .todoEditButton, .todoDeleteButton, .todoInfoButton{
+            border: none;
             border-radius: 10px;
             background-color: #efefef;
             height: 50px;
@@ -129,21 +130,9 @@ body{
         }
 
         .todoDeleteButton{
-            border: 1px solid black;
-            border-radius: 10px;
-            background-color: #efefef;
-            height: 50px;
-            width: 50px;
-            font-size: 15px;
         }
 
         .todoInfoButton{
-            border: 1px solid black;
-            border-radius: 10px;
-            background-color: #efefef;
-            height: 50px;
-            width: 50px;
-            font-size: 15px;
         }
 
 /* Project and Item Popup */
@@ -151,11 +140,31 @@ body{
     display: none;
 }
 
+.projectEditPopup, .itemEditPopup, .infoPopup{
+    display: none;
+    background-color: #ffb238;
+    border-radius: 20px;
+    width: 400px;
+    padding: 40px;
+    /* place it dead center in the window*/
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .itemPopup{
     display: none;
 }
 
     .projectForm{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .projectEditForm, .itemEditForm, .infoForm{
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -172,7 +181,7 @@ body{
         padding-left: 15px;
     }
 
-    .projectSubmit, .projectCancel{
+    .projectSubmit, .projectCancel, .projectEditSubmit, .projectEditCancel, .closeButton{
         border: none;
         border-radius: 10px;
         background-color: #20a39e;
@@ -182,7 +191,7 @@ body{
         opacity: 0.8;
     }
 
-    .itemSubmit, .itemCancel{
+    .itemSubmit, .itemCancel, .itemEditSubmit, .itemEditCancel{
         border: none;
         border-radius: 10px;
         background-color: #20a39e;
@@ -192,10 +201,10 @@ body{
         opacity: 0.8;
     }
 
-    .projectCancel, .itemCancel{
+    .projectCancel, .itemCancel, .projectEditCancel, .itemEditCancel, .closeButton{
         background-color: #f55536;
     }
 
-    .projectSubmit:hover, .projectCancel:hover, .itemSubmit:hover, .itemCancel:hover{
+    .projectSubmit:hover, .projectCancel:hover, .itemSubmit:hover, .itemCancel:hover, .projectEditSubmit:hover, .projectEditCancel:hover, .itemEditSubmit:hover, .itemEditCancel:hover, .closeButton:hover{
         opacity:1;
     }
