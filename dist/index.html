@@ -46,8 +46,14 @@
                     <form class = "itemForm">
                         <input type = "text" placeholder = "Enter Title" class = "title">
                         <input type = "text" placeholder = "Enter Description" class = "description">
+                        <label>Due Date: </label>
                         <input type = "date" name = "dueDate" class = "dueDate">
-                        <input type = "text" placeholder = "Enter Priority" class = "priority">
+                        <label>Priority: </label>
+                        <select class = "priority">
+                            <option value = "High">High</option>
+                            <option value = "Medium">Medium</option>
+                            <option value = "Low">Low</option>
+                        </select>
                         <button class = "itemSubmit">Submit</button>
                         <button class = "itemCancel">Cancel</button>
                     </form>
@@ -56,7 +62,13 @@
                     <form class = "itemEditForm">
                             <input type = "text" placeholder = "Enter Title" class = "titleEdit">
                             <input type = "text" placeholder = "Enter Description" class = "descriptionEdit">
-                            <input type = "text" placeholder = "Enter Priority" class = "priorityEdit">
+                            <label>Priority: </label>
+                            <select class = "priorityEdit">
+                                <option value = "High">High</option>
+                                <option value = "Medium">Medium</option>
+                                <option value = "Low">Low</option>
+                            </select>
+                            <label>Due Date: </label>
                             <input type = "date" class = "dueDateEdit">
                         <div>
                             <button class = "itemEditSubmit">Submit</button>

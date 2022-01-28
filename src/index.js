@@ -1,6 +1,13 @@
 import {initDOM, currentItem, createDOM, popupClose} from './DOM.js';
 import './style.css';
 
+// Variables
+let project; // sorted all todos based on project#
+let projectList; // all project names goes here
+let projectCounter;
+let currentProject;
+// localStorage.clear();
+
 // Todo Item Factory 
 const todoItem = (title, description, project, status, dueDate, priority) => {
     const completeToggle = () => {
@@ -16,35 +23,67 @@ function createProjectAlgor(_name, projectList){
     projectCounter++;
 }
 
-// Variables
-let project = []; // sorted all todos based on project#
-let projectList = []; // all project names goes here
-let currentProject;
-let projectCounter = 0;
+// localStorage
+function saveToLocalStorage (){
+    localStorage.setItem('project', JSON.stringify(project));
+    localStorage.setItem('projectList', JSON.stringify(projectList));
+    localStorage.setItem('currentProject', JSON.stringify(currentProject));
+    localStorage.setItem('projectCounter', JSON.stringify(projectCounter));
+}
 
-//#region Initialization - create Default Projects and Todo Items
+function readLocalStorage (){
+    project = JSON.parse(localStorage.getItem('project'));
+    projectList = JSON.parse(localStorage.getItem('projectList'));
+    // currentProject = JSON.parse(localStorage.getItem('currentProject'));
+    projectCounter = JSON.parse(localStorage.getItem('projectCounter'));
+
+    return project, projectList, projectCounter;
+}
+
+
+
+if (localStorage.getItem('projectList')){
+    readLocalStorage(localStorage.getItem('project'));
+    createDOM.projectInit(projectList);
+
+    console.log(localStorage.getItem('project'));
+    console.log(project, projectList, currentProject, projectCounter);
+} else {
+    init();
+}
+
 initDOM();
 
-let projectInit = [];
 
-createProjectAlgor("Inbox", projectList); 
-projectInit.push(todoItem('Buy birthday present for Tiffany', 'maybe just get an e-giftcard', '0', "incomplete", '2020-01-01', 'High'));
-projectInit.push(todoItem('Water the plants', 'talk to the plants, make sure they are happy', '0', "incomplete", '2020-01-01', 'Medium'));
-projectInit.push(todoItem('Car maintenance', 'fix the broken window', '0', "incomplete", '2020-01-01', 'Low'));
+//#region Initialization - create Default Projects and Todo Items
+function init (){
+    // Variables
+    project = []; // sorted all todos based on project#
+    projectList = []; // all project names goes here
+    projectCounter = 0;
 
-createProjectAlgor("Work", projectList);
-projectInit.push(todoItem('Meeting with Derek the manager', 'Prepare presentation and coffee', '1', "incomplete", '2020-01-01', 'High'));
-projectInit.push(todoItem('Call Todd from X Company', 'Discuss about which pizza flavor is the best', '1', "incomplete", '2020-01-01', 'High'));
+    let projectInit = [];
 
-createProjectAlgor("Hobbies", projectList);
-projectInit.push(todoItem('Disc golf with Dalton', 'La Mirada Park', '2', "incomplete", '2020-01-01', 'Medium'));
-projectInit.push(todoItem('Workout at the gym', 'so that I can have more burgers', '2', "incomplete", '2020-01-01', 'Low'));
-projectInit.push(todoItem('Browse Amazon for Harry Potter Wands', 'get the Elder Wand', '2', "incomplete", '2020-01-01', 'High'));
-projectInit.push(todoItem('Watch another Godzilla movie', 'popcorn and coke', '2', "incomplete", '2020-01-01', 'High'));
+    createProjectAlgor("Inbox", projectList); 
+    projectInit.push(todoItem('Buy birthday present for Tiffany', 'maybe just get an e-giftcard', '0', "incomplete", '2020-01-01', 'High'));
+    projectInit.push(todoItem('Water the plants', 'talk to the plants, make sure they are happy', '0', "incomplete", '2020-01-01', 'Medium'));
+    projectInit.push(todoItem('Car maintenance', 'fix the broken window', '0', "incomplete", '2020-01-01', 'Low'));
 
-// Sort todos based on project#: go through projectList and filter the todos
-for (let i = 0; i < projectList.length; i++){
-    project[i] = projectInit.filter(todo => todo.project == `${i}`);
+    createProjectAlgor("Work", projectList);
+    projectInit.push(todoItem('Meeting with Derek the manager', 'Prepare presentation and coffee', '1', "incomplete", '2020-01-01', 'High'));
+    projectInit.push(todoItem('Call Todd from X Company', 'Discuss about which pizza flavor is the best', '1', "incomplete", '2020-01-01', 'High'));
+
+    createProjectAlgor("Hobbies", projectList);
+    projectInit.push(todoItem('Disc golf with Dalton', 'La Mirada Park', '2', "incomplete", '2020-01-01', 'Medium'));
+    projectInit.push(todoItem('Workout at the gym', 'so that I can have more burgers', '2', "incomplete", '2020-01-01', 'Low'));
+    projectInit.push(todoItem('Browse Amazon for Harry Potter Wands', 'get the Elder Wand', '2', "incomplete", '2020-01-01', 'High'));
+    projectInit.push(todoItem('Watch another Godzilla movie', 'popcorn and coke', '2', "incomplete", '2020-01-01', 'High'));
+
+    // Sort todos based on project#: go through projectList and filter the todos
+    for (let i = 0; i < projectList.length; i++){
+        project[i] = projectInit.filter(todo => todo.project == `${i}`);
+    }
+    return project, projectList, currentProject, projectCounter;
 }
 //#endregion
 
@@ -71,7 +110,6 @@ function projectButton() {
 
             // If this project already has To-Dos in it, then create item DOM
             if (project[currentProject]){
-                
                 for (let eachTodo = 0; eachTodo < project[currentProject].length; eachTodo++){
                     if (project[currentProject][eachTodo]){
                         createDOM.item(project[currentProject][eachTodo], project, currentProject, eachTodo);
@@ -90,6 +128,7 @@ const projectSubmit = document.querySelector('.projectSubmit');
 projectSubmit.addEventListener('click', (e) => {
     e.preventDefault();
     createProjectAlgor(document.querySelector('.projectInput').value, projectList);
+    saveToLocalStorage();
     projectButton();
 });
 
@@ -108,6 +147,7 @@ itemSubmit.addEventListener('click', (e) => {
     }
     //create DOM and behavior
     createDOM.item(todo, project, currentProject, project[currentProject].length-1);
+    saveToLocalStorage();
 });
 
 // Edit Project Button
@@ -115,7 +155,7 @@ document.querySelector('.projectEditSubmit').addEventListener('click', (e) => {
     e.preventDefault();
     projectList[currentProject] = document.querySelector('.projectEditInput').value;
     createDOM.projectEdit(projectList, currentProject);
-
+    saveToLocalStorage();
     projectButton();
 });
 
@@ -137,6 +177,7 @@ deleteProject.addEventListener('click', () => {
     // clear the main panel
     while(todoList.firstChild){todoList.firstChild.remove()};
 
+    saveToLocalStorage();
     projectButton();
 });
 
@@ -157,6 +198,7 @@ itemEditSubmit.addEventListener('click', (e) => {
         }
     }
 
+    saveToLocalStorage();
     popupClose.itemEdit();
 
 });
@@ -164,4 +206,5 @@ itemEditSubmit.addEventListener('click', (e) => {
 export{
     projectButton,
     projectCounter,
+    saveToLocalStorage,
 };

@@ -1,4 +1,4 @@
-import {projectButton, projectCounter} from './index.js';
+import {projectButton, projectCounter, saveToLocalStorage} from './index.js';
 import {format} from 'date-fns';
 
 function initDOM(){
@@ -113,6 +113,17 @@ const popupClose = (() => {
 
 let currentItem;
 const createDOM = (() => {
+    const projectInit = (_projectList) => {
+        const projectList = document.querySelector('.projectList');
+        for (let ix = 0; ix < _projectList.length; ix++) {
+            const projects = document.createElement('button');
+            projects.textContent = _projectList[ix];
+            projects.classList.add('project');
+            projects.classList.add(`projects${ix}`);
+            projectList.appendChild(projects);
+        }
+    }
+
     const project = (_projectList) => {
         const projectList = document.querySelector('.projectList');
         let eachProject = _projectList.length - 1;
@@ -145,6 +156,8 @@ const createDOM = (() => {
             todo.status = (todo.status == "complete") ? "incomplete" : "complete";
             // CSS - Line Through
             todoButton.style.cssText = (todo.status == "complete") ? "text-decoration: line-through;" : "text-decoration: none;";
+            
+            saveToLocalStorage();
         });
         todoContainer.appendChild(todoButton);
 
@@ -165,7 +178,8 @@ const createDOM = (() => {
                 titleInfo.textContent = todo.title;
                 descriptionInfo.textContent = todo.description;
                 priorityInfo.textContent = "Priority: " + todo.priority;
-                dueDateInfo.textContent = format(new Date(todo.dueDate),'MMMM dd, yyyy');
+                console.log(todo.dueDate);
+                dueDateInfo.textContent = format(new Date(todo.dueDate.replace(/-/g, '/')),'MMMM dd, yyyy');
                 statusInfo.textContent = todo.status;
 
             const closeButton = document.querySelector('.closeButton');
@@ -196,6 +210,7 @@ const createDOM = (() => {
             //remove object from array
             // project[nthProject].splice(nthItem,1);
             project[nthProject][nthItem] = '';
+            saveToLocalStorage();
             //render main panel
             projectButton();
         });
@@ -205,6 +220,7 @@ const createDOM = (() => {
     }
 
     return {
+        projectInit,
         project,
         projectEdit,
         item,
