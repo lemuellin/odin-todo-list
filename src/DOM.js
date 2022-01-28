@@ -1,4 +1,5 @@
 import {projectButton, projectCounter} from './index.js';
+import {format} from 'date-fns';
 
 function initDOM(){
     // Create Project Button
@@ -157,14 +158,15 @@ const createDOM = (() => {
                 const titleInfo = document.querySelector('.titleInfo');
                 const descriptionInfo = document.querySelector('.descriptionInfo');
                 const statusInfo = document.querySelector('.statusInfo');
-                // const priorityInfo = document.querySelector('.priorityInfo');
-                // const dueDateInfo = document.querySelector('.dueDateInfo');
+                const priorityInfo = document.querySelector('.priorityInfo');
+                const dueDateInfo = document.querySelector('.dueDateInfo');
 
+                // date-fns
                 titleInfo.textContent = todo.title;
                 descriptionInfo.textContent = todo.description;
+                priorityInfo.textContent = "Priority: " + todo.priority;
+                dueDateInfo.textContent = format(new Date(todo.dueDate),'MMMM dd, yyyy');
                 statusInfo.textContent = todo.status;
-                // priorityInfo.textContent = todo.priority;
-                // dueDateInfo.textContent = todo.dueDate;
 
             const closeButton = document.querySelector('.closeButton');
             closeButton.addEventListener('click', () => {

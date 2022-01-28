@@ -2,12 +2,11 @@ import {initDOM, currentItem, createDOM, popupClose} from './DOM.js';
 import './style.css';
 
 // Todo Item Factory 
-const todoItem = (title, description, project, status) => {
+const todoItem = (title, description, project, status, dueDate, priority) => {
     const completeToggle = () => {
         status = (status == "complete") ? "incomplete" : "complete";
     }
-    // dueDate, priority
-    return {title, description, project, status, completeToggle};
+    return {title, description, project, status, dueDate, priority, completeToggle};
 };
 
 // Create Project Algor
@@ -29,19 +28,19 @@ initDOM();
 let projectInit = [];
 
 createProjectAlgor("Inbox", projectList); 
-projectInit.push(todoItem('title11', 'description11', '0', "incomplete"));
-projectInit.push(todoItem('title12', 'description12', '0', "incomplete"));
-projectInit.push(todoItem('title13', 'description13', '0', "incomplete"));
+projectInit.push(todoItem('Buy birthday present for Tiffany', 'maybe just get an e-giftcard', '0', "incomplete", '2020-01-01', 'High'));
+projectInit.push(todoItem('Water the plants', 'talk to the plants, make sure they are happy', '0', "incomplete", '2020-01-01', 'Medium'));
+projectInit.push(todoItem('Car maintenance', 'fix the broken window', '0', "incomplete", '2020-01-01', 'Low'));
 
 createProjectAlgor("Work", projectList);
-projectInit.push(todoItem('title21', 'description21', '1', "incomplete"));
-projectInit.push(todoItem('title22', 'description22', '1', "incomplete"));
+projectInit.push(todoItem('Meeting with Derek the manager', 'Prepare presentation and coffee', '1', "incomplete", '2020-01-01', 'High'));
+projectInit.push(todoItem('Call Todd from X Company', 'Discuss about which pizza flavor is the best', '1', "incomplete", '2020-01-01', 'High'));
 
 createProjectAlgor("Hobbies", projectList);
-projectInit.push(todoItem('title31', 'description31', '2', "incomplete"));
-projectInit.push(todoItem('title32', 'description32', '2', "incomplete"));
-projectInit.push(todoItem('title33', 'description33', '2', "incomplete"));
-projectInit.push(todoItem('title34', 'description34', '2', "incomplete"));
+projectInit.push(todoItem('Disc golf with Dalton', 'La Mirada Park', '2', "incomplete", '2020-01-01', 'Medium'));
+projectInit.push(todoItem('Workout at the gym', 'so that I can have more burgers', '2', "incomplete", '2020-01-01', 'Low'));
+projectInit.push(todoItem('Browse Amazon for Harry Potter Wands', 'get the Elder Wand', '2', "incomplete", '2020-01-01', 'High'));
+projectInit.push(todoItem('Watch another Godzilla movie', 'popcorn and coke', '2', "incomplete", '2020-01-01', 'High'));
 
 // Sort todos based on project#: go through projectList and filter the todos
 for (let i = 0; i < projectList.length; i++){
@@ -99,7 +98,7 @@ const itemSubmit = document.querySelector('.itemSubmit');
 itemSubmit.addEventListener('click', (e) => {
     e.preventDefault();
     // submit new todo to project
-    let todo = todoItem(document.querySelector('.title').value, document.querySelector('.description').value, currentProject, "incomplete")
+    let todo = todoItem(document.querySelector('.title').value, document.querySelector('.description').value, currentProject, "incomplete", document.querySelector('.dueDate').value, document.querySelector('.priority').value)
 
     if (project[currentProject]){
         project[currentProject].push(todo);
@@ -147,7 +146,8 @@ itemEditSubmit.addEventListener('click', (e) => {
     e.preventDefault();
     project[currentProject][currentItem].title = document.querySelector('.titleEdit').value;
     project[currentProject][currentItem].description = document.querySelector('.descriptionEdit').value;
-
+    project[currentProject][currentItem].dueDate = document.querySelector('.dueDateEdit').value
+    project[currentProject][currentItem].priority = document.querySelector('.priorityEdit').value
     // clear the main panel
     while(todoList.firstChild){todoList.firstChild.remove()};    
 

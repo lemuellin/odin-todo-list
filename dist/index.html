@@ -34,26 +34,30 @@
                 <div class = "todoList"></div>
                 <div class = "infoPopup">
                     <div class = "infoForm">
-                        <div class = "titleInfo"></div>
-                        <div class = "descriptionInfo"></div>
-                        <!-- <div class = "priorityInfo"></div>
-                        <div class = "dueDateInfo"></div> -->
+                        <h1 class = "titleInfo"></h1>
+                        <h4 class = "descriptionInfo"></h4>
+                        <div class = "priorityInfo"></div>
+                        <div class = "dueDateInfo"></div>
                         <div class = "statusInfo"></div>
                         <button class = "closeButton">OK</button>
                     </div>
                 </div>
                 <div class = "itemPopup">
                     <form class = "itemForm">
-                        <input type = "text" placeholder = "Enter Title" name = "title" class = "title">
-                        <input type = "text" placeholder = "Enter Description" name = "description" class = "description">
+                        <input type = "text" placeholder = "Enter Title" class = "title">
+                        <input type = "text" placeholder = "Enter Description" class = "description">
+                        <input type = "date" name = "dueDate" class = "dueDate">
+                        <input type = "text" placeholder = "Enter Priority" class = "priority">
                         <button class = "itemSubmit">Submit</button>
                         <button class = "itemCancel">Cancel</button>
                     </form>
                 </div>
                 <div class = "itemEditPopup">
                     <form class = "itemEditForm">
-                            <input type = "text" placeholder = "Enter Title" name = "title" class = "titleEdit">
-                            <input type = "text" placeholder = "Enter Description" name = "description" class = "descriptionEdit">
+                            <input type = "text" placeholder = "Enter Title" class = "titleEdit">
+                            <input type = "text" placeholder = "Enter Description" class = "descriptionEdit">
+                            <input type = "text" placeholder = "Enter Priority" class = "priorityEdit">
+                            <input type = "date" class = "dueDateEdit">
                         <div>
                             <button class = "itemEditSubmit">Submit</button>
                             <button class = "itemEditCancel">Cancel</button>
