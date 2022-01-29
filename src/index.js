@@ -1,4 +1,5 @@
 import {initDOM, currentItem, createDOM, popupClose} from './DOM.js';
+// import {saveToLocalStorage, readLocalStorage} from './localStorage';
 import './style.css';
 
 // Variables
@@ -27,27 +28,23 @@ function createProjectAlgor(_name, projectList){
 function saveToLocalStorage (){
     localStorage.setItem('project', JSON.stringify(project));
     localStorage.setItem('projectList', JSON.stringify(projectList));
-    localStorage.setItem('currentProject', JSON.stringify(currentProject));
     localStorage.setItem('projectCounter', JSON.stringify(projectCounter));
 }
 
 function readLocalStorage (){
     project = JSON.parse(localStorage.getItem('project'));
     projectList = JSON.parse(localStorage.getItem('projectList'));
-    // currentProject = JSON.parse(localStorage.getItem('currentProject'));
     projectCounter = JSON.parse(localStorage.getItem('projectCounter'));
 
     return project, projectList, projectCounter;
 }
 
-
-
 if (localStorage.getItem('projectList')){
-    readLocalStorage(localStorage.getItem('project'));
+    console.log(projectList);
+    readLocalStorage();
+    console.log(projectList);
     createDOM.projectInit(projectList);
-
     console.log(localStorage.getItem('project'));
-    console.log(project, projectList, currentProject, projectCounter);
 } else {
     init();
 }

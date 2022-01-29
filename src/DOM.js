@@ -1,4 +1,5 @@
 import {projectButton, projectCounter, saveToLocalStorage} from './index.js';
+// import {saveToLocalStorage} from './localStorage';
 import {format} from 'date-fns';
 
 function initDOM(){
@@ -115,11 +116,11 @@ let currentItem;
 const createDOM = (() => {
     const projectInit = (_projectList) => {
         const projectList = document.querySelector('.projectList');
-        for (let ix = 0; ix < _projectList.length; ix++) {
+        for (let i = 0; i < _projectList.length; i++) {
             const projects = document.createElement('button');
-            projects.textContent = _projectList[ix];
+            projects.textContent = _projectList[i];
             projects.classList.add('project');
-            projects.classList.add(`projects${ix}`);
+            projects.classList.add(`projects${i}`);
             projectList.appendChild(projects);
         }
     }
@@ -140,7 +141,7 @@ const createDOM = (() => {
         popupClose.projectEdit();
     }
 
-    const item = (todo, project, nthProject, nthItem) => {
+    const item = (_todo, _project, _nthProject, _nthItem) => {
         const todoList = document.querySelector('.todoList');
         const todoContainer = document.createElement('div');
         todoContainer.classList.add('todoContainer');
@@ -148,14 +149,14 @@ const createDOM = (() => {
 
         //Todo Title
         const todoButton = document.createElement('button');
-        todoButton.textContent = todo.title;
+        todoButton.textContent = _todo.title;
         todoButton.classList.add('todoItems');
-        todoButton.style.cssText = (todo.status == "complete") ? "text-decoration: line-through;" : "text-decoration: none;";
+        todoButton.style.cssText = (_todo.status == "complete") ? "text-decoration: line-through;" : "text-decoration: none;";
         todoButton.addEventListener('click', () => {
             // project Status
-            todo.status = (todo.status == "complete") ? "incomplete" : "complete";
+            _todo.status = (_todo.status == "complete") ? "incomplete" : "complete";
             // CSS - Line Through
-            todoButton.style.cssText = (todo.status == "complete") ? "text-decoration: line-through;" : "text-decoration: none;";
+            todoButton.style.cssText = (_todo.status == "complete") ? "text-decoration: line-through;" : "text-decoration: none;";
             
             saveToLocalStorage();
         });
@@ -175,12 +176,13 @@ const createDOM = (() => {
                 const dueDateInfo = document.querySelector('.dueDateInfo');
 
                 // date-fns
-                titleInfo.textContent = todo.title;
-                descriptionInfo.textContent = todo.description;
-                priorityInfo.textContent = "Priority: " + todo.priority;
-                console.log(todo.dueDate);
-                dueDateInfo.textContent = format(new Date(todo.dueDate.replace(/-/g, '/')),'MMMM dd, yyyy');
-                statusInfo.textContent = todo.status;
+                titleInfo.textContent = _todo.title;
+                descriptionInfo.textContent = _todo.description;
+                priorityInfo.textContent = "Priority: " + _todo.priority;
+                if (_todo.dueDate){
+                    dueDateInfo.textContent = format(new Date(_todo.dueDate.replace(/-/g, '/')),'MMMM dd, yyyy');
+                }
+                statusInfo.textContent = _todo.status;
 
             const closeButton = document.querySelector('.closeButton');
             closeButton.addEventListener('click', () => {
@@ -195,8 +197,7 @@ const createDOM = (() => {
         todoEditButton.textContent = "Edit";
         todoEditButton.addEventListener('click', () => {
             popupOpen.itemEdit();
-            currentItem = nthItem;
-            return currentItem;
+            currentItem = _nthItem;
         });
         todoContainer.appendChild(todoEditButton);
 
@@ -208,8 +209,7 @@ const createDOM = (() => {
             //remove DOM
             todoList.removeChild(todoContainer);
             //remove object from array
-            // project[nthProject].splice(nthItem,1);
-            project[nthProject][nthItem] = '';
+            _project[_nthProject][_nthItem] = '';
             saveToLocalStorage();
             //render main panel
             projectButton();

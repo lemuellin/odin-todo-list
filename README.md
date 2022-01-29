@@ -14,3 +14,12 @@ Future Development:
     // or
     // Wed Jan 25 2017 16:00:00 GMT-0800 (Pacific Standard Time)
 
+3. CSS Styling
+4. Separate to multiple modules
+
+Learning:
+1. Webpack
+2. Factories
+3. ES6 Module
+4. Web storage API - localStorage
+
