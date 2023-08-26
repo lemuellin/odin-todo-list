@@ -1,3 +1,23 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyDhabS79gUYSHfZG70jbRph-4uaV-AtOUE",
+  authDomain: "to-do-list-47089.firebaseapp.com",
+  projectId: "to-do-list-47089",
+  storageBucket: "to-do-list-47089.appspot.com",
+  messagingSenderId: "81106768953",
+  appId: "1:81106768953:web:35c9711618869a837fa9e8"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+
+
 import {
   initDOM, currentItem, createDOM, popupClose,
 } from './DOM.js';
